@@ -4,7 +4,21 @@
 // implement interpolation here
 int interpolation(uint16_t channel) {
 	// write interpolation code here
-}
+        int in_min = 0;
+        int in_max = 2047;
+        int out_min = 0;
+        int out_max = 127;
+        int pwm = 1 + out_min + (channel - in_min) * (out_max - out_min) / (in_max - in_min);
+
+        if (pwm < out_min) {
+           (pwm = out_min);
+        } else if (pwm > out_max) {
+           (pwm = out_max);
+        }
+
+        return pwm;
+}    // 170 channel must give 11
+
 // creating 11 bit channel
 uint16_t *parse_buffer(uint8_t buff[]) { 
 		
